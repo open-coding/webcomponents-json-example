@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>autonomous custom element updated by JSON - Example</title>
+<script src="custom-number-field.js"></script>
+<style>
+
+  textarea {
+    width: 350px; 
+    height: 250px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: min-content;
+    grid-gap: 5px;
+  }
+
+  .col-1 {
+    grid-column: 1;
+  }
+
+  .col-2 {
+    grid-column: 2;
+  }
+
+  .row-1 {
+    grid-row: 1;
+  }
+
+  .row-2 {
+    grid-row: 2;
+  }
+</style>
+</head>
+<body>
+    <h1>autonomous custom element updated by JSON - Example</h1>
+    <p>This test demonstrates how an autonomous custom element can be configured and updated by JSON.</p>
+    <div class="grid">
+        <fieldset class="col-1 row-1">
+            <legend>JSON</legend>
+            <textarea id="json-data">
+    {
+        "label": {
+        "text": "Zeit in Sekunden",
+        "orientation": "north"
+        },
+        "min": 20,
+        "max": 40,
+        "disabled": false,
+        "editable": true,
+        "visible": true,
+        "value": "25",
+        "mandatory": true,
+        "commands": ["focus"]
+    }</textarea>
+            <button onclick="document.getElementsByTagName('custom-number-field')[0].setAttribute('json',document.getElementById('json-data').value)">send to webcomponent via attribute</button>
+            <button onclick="document.getElementsByTagName('custom-number-field')[0].updateJSON(document.getElementById('json-data').value)">send to webcomponent via function</button>
+        </fieldset>
+        <fieldset class="col-2 row-1">
+            <legend>webcomponent under test</legend>
+            <custom-number-field></custom-number-field>
+        </fieldset>
+    </div>
+</body>
+</html>
