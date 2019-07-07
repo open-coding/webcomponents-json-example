@@ -19,11 +19,12 @@
 <body>
   <h1>autonomous custom element updated by JSON - Example</h1>
   <p>This test demonstrates how an autonomous custom element can be configured and updated by JSON.</p>
-  <div class="grid-3">
-    <fieldset class="col-1 row-1">
-      <legend>JSON</legend>
-      <div class="grid-1">
-        <textarea id="json-data" class="col-1 row-1">
+  <div class="grid-1">
+    <div class="col-1 row-1 grid-3">
+      <fieldset class="col-1 row-1">
+        <legend>JSON</legend>
+        <div class="grid-1">
+          <textarea id="json-data" class="col-1 row-1">
       {
           "label": {
           "text": "Zeit in Sekunden",
@@ -38,25 +39,57 @@
           "mandatory": true,
           "commands": ["focus"]
       }</textarea>
-        <button class="col-1 row-2"
-          onclick="document.getElementsByTagName('custom-number-field')[0].setAttribute('json',document.getElementById('json-data').value)">send
-          to webcomponent via attribute</button>
-        <button class="col-1 row-3"
-          onclick="document.getElementsByTagName('custom-number-field')[0].removeAttribute('json')">clear
-          json attribute</button>
-        <button class="col-1 row-4"
-          onclick="document.getElementsByTagName('custom-number-field')[0].updateJSON(document.getElementById('json-data').value)">send
-          to webcomponent via function</button>
-      </div>
-    </fieldset>
-    <fieldset class="col-2 row-1">
-      <legend>webcomponent under test</legend>
-      <custom-number-field></custom-number-field>
-    </fieldset>
-    <fieldset class="col-3 row-1">
-      <legend>normal element</legend>
-      <input type="number"></input>
-    </fieldset>
+          <button class="col-1 row-2"
+            onclick="document.getElementsByTagName('custom-number-field')[0].setAttribute('json',document.getElementById('json-data').value)">send
+            to webcomponent via attribute</button>
+          <button class="col-1 row-3"
+            onclick="document.getElementsByTagName('custom-number-field')[0].removeAttribute('json')">clear
+            json attribute</button>
+          <button class="col-1 row-4"
+            onclick="document.getElementsByTagName('custom-number-field')[0].updateJSON(document.getElementById('json-data').value)">send
+            to webcomponent via function</button>
+        </div>
+      </fieldset>
+      <fieldset class="col-2 row-1">
+        <legend>webcomponent under test</legend>
+        <custom-number-field></custom-number-field>
+      </fieldset>
+      <fieldset class="col-3 row-1">
+        <legend>normal element</legend>
+        <input type="number"></input>
+      </fieldset>
+    </div>
+    <div class="col-1 row-2 gap"></div>
+    <div class="col-1 row-3">
+      <table class="center">
+        <caption>The example was tested in</caption>
+        <tr>
+          <th>Browser</th>
+          <th>Version</th>
+          <th>Result</th>
+        </tr>
+        <tr>
+          <td>Google Chrome</td>
+          <td>75.0.3770.100</td>
+          <td>✔</td>
+        </tr>
+        <tr>
+          <td>Mozilla Firefox</td>
+          <td>67.0.4</td>
+          <td>✔</td>
+        </tr>
+        <tr>
+          <td>Microsoft Edge</td>
+          <td>44.17763.1.0</td>
+          <td>✔</td>
+        </tr>
+        <tr>
+          <td>Microsoft Internet Explorer 11</td>
+          <td>11.557.17763.0</td>
+          <td>✔</td>
+        </tr>
+      </table>
+    </div>
   </div>
 </body>
 
