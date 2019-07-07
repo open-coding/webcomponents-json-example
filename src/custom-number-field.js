@@ -1,18 +1,30 @@
 ﻿
 // webcomponents has its own style - 'hidden' by shadow-dom
 // just for demonstation-purpose
-const getStyle = `
+const getStyle = 
+`
   input {
     width: 120px;
   }
 
-  input:required + label:after {
+  input:required:not(:disabled) + label:after {
     color: red;
+    content: '*';
+  }
+
+  input:required:disabled + label:after {
+    color: grey;
     content: '*';
   }
 
   input:disabled + label {
     color: grey;
+  }
+
+  input:read-only {
+    background-color: #ebebeb;
+    border: 2px solid #a6a6a6;
+    outline: none;
   }
 
   :invalid {
@@ -23,26 +35,32 @@ const getStyle = `
   
   .grid {
     display: grid;
+    display: -ms-grid;
     grid-template-columns: min-content;
+    -ms-grid-columns: min-content;
     grid-gap: 5px;
   }
 
   .col-1 {
     grid-column: 1;
+    -ms-grid-column: 1;
   }
 
   .col-2 {
     grid-column: 2;
+    -ms-grid-column: 2;
   }
 
   .row-1 {
     grid-row: 1;
+    -ms-grid-row: 1;
   }
 
   .row-2 {
     grid-row: 2;
+    -ms-grid-row: 2;
   }
-  `
+`
 
 class CustomNumberField extends HTMLElement {
 
@@ -59,7 +77,7 @@ class CustomNumberField extends HTMLElement {
     }
 
     // set defaults
-    this.currentLabelOrientation = 'west'
+    this.currentLabelOrientation = 'none'
 
     const id = this.getAttribute('id');
     this.id = id ? id : "some-random-id"
@@ -68,7 +86,7 @@ class CustomNumberField extends HTMLElement {
     this.input = document.createElement('input');
     this.label = document.createElement('label')
 
-    this.render()
+    this._render()
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -80,12 +98,30 @@ class CustomNumberField extends HTMLElement {
 
   updateJSON(json) {
     try {
+
+      // this codeblock was written because IE11 does not support Object.entries
+      // to avoid using a polyfill, the following code was written
+      if(json){
+        if(json.trim().length < 4){
+          // fail fast ... nothing todo, because empty object
+          return;
+        }
+      }
+
+      if(json == null){
+        return;
+      }
+
       const obj = JSON.parse(json);
 
-      if (Object.entries(obj).length === 0 && obj.constructor === Object) {
-        // fail fast ... nothing todo, because empty object
-        return
-      }
+      // next codeblock should be used instead of the above code
+
+      //if (Object.entries(obj).length === 0 && obj.constructor === Object) {
+      // // fail fast ... nothing todo, because empty object
+      // return
+      //}
+
+
       console.info('parsing json...')
       // parse label infos
       if (obj.label != undefined) {
@@ -93,16 +129,16 @@ class CustomNumberField extends HTMLElement {
           this.label.innerText = obj.label.text
         }
         if (obj.label.orientation != undefined) {
-          this.handleLabelOrientation(obj.label.orientation)
+          this._handleLabelOrientation(obj.label.orientation)
         }
       }
 
-      this.setIfValueExists(obj.max, 'max', this.input)
-      this.setIfValueExists(obj.min, 'min', this.input)
-      this.setBooleanAttrIfValueExists(obj.disabled, 'disabled', this.input, true)
-      this.setBooleanAttrIfValueExists(obj.mandatory, 'required', this.input, true)
-      this.setBooleanAttrIfValueExists(obj.editable, 'readonly', this.input, false)
-      this.setBooleanAttrIfValueExists(obj.visible, 'hidden', this, false)
+      this._setIfValueExists(obj.max, 'max', this.input)
+      this._setIfValueExists(obj.min, 'min', this.input)
+      this._setBooleanAttrIfValueExists(obj.disabled, 'disabled', this.input, true)
+      this._setBooleanAttrIfValueExists(obj.mandatory, 'required', this.input, true)
+      this._setBooleanAttrIfValueExists(obj.editable, 'readonly', this.input, false)
+      this._setBooleanAttrIfValueExists(obj.visible, 'hidden', this, false)
 
       if (obj.value != undefined) {
         this.input.value = obj.value
@@ -110,7 +146,7 @@ class CustomNumberField extends HTMLElement {
 
       if (obj.commands != undefined) {
         const currentThis = this;
-        obj.commands.forEach((command) => currentThis.handleCommand(command))
+        obj.commands.forEach((command) => currentThis._handleCommand(command))
       }
 
 
@@ -119,7 +155,7 @@ class CustomNumberField extends HTMLElement {
     }
   }
 
-  setBooleanAttrIfValueExists(value, attribute, obj, valueShouldBe) {
+  _setBooleanAttrIfValueExists(value, attribute, obj, valueShouldBe) {
     if (value != undefined) {
       if (value == valueShouldBe) {
         obj.setAttribute(attribute, attribute)
@@ -129,13 +165,13 @@ class CustomNumberField extends HTMLElement {
     }
   }
 
-  setIfValueExists(value, attribute, obj) {
+  _setIfValueExists(value, attribute, obj) {
     if (value != undefined) {
       obj.setAttribute(attribute, value)
     }
   }
 
-  handleCommand(command) {
+  _handleCommand(command) {
     if (command == undefined) {
       // fail fast nothing to do
       return
@@ -159,14 +195,14 @@ class CustomNumberField extends HTMLElement {
   }
 
   // perhaps extract if more webcomponents with included labels are build...
-  handleLabelOrientation(orientation) {
+  _handleLabelOrientation(orientation) {
 
     if (orientation == this.currentLabelOrientation) {
       // fail fast ... nothing to do
       return
     }
 
-    this.removeGridClasses()
+    this._removeGridClasses()
     switch (orientation) {
       case 'north':
         this.label.classList.add('col-1', 'row-1')
@@ -197,20 +233,14 @@ class CustomNumberField extends HTMLElement {
     }
   }
 
-  removeGridClasses() {
+  _removeGridClasses() {
     // find a better solution for that!
-    this.label.classList.remove('col-1')
-    this.label.classList.remove('col-2')
-    this.label.classList.remove('row-1')
-    this.label.classList.remove('row-2')
-
-    this.input.classList.remove('col-1')
-    this.input.classList.remove('col-2')
-    this.input.classList.remove('row-1')
-    this.input.classList.remove('row-2')
+    const list = ['col-1', 'col-2', 'row-1', 'row-2'];
+    this.label.classList.remove(...list)
+    this.input.classList.remove(...list)
   }
 
-  addStyle() {
+  _addStyle() {
     const styleTag = document.createElement('style')
     styleTag.textContent = getStyle
     this.shadow.appendChild(styleTag)
@@ -218,8 +248,8 @@ class CustomNumberField extends HTMLElement {
 
 
   // maybe use templates instead
-  render() {
-    this.addStyle()
+  _render() {
+    this._addStyle()
     const div = document.createElement('div')
     div.classList.add('grid')
 
@@ -231,7 +261,7 @@ class CustomNumberField extends HTMLElement {
     // configure label
     this.label.setAttribute('for', `${this.id}-delegate`)
     this.label.innerText = 'labeltext'
-    this.handleLabelOrientation(this.currentLabelOrientation)
+    this._handleLabelOrientation('west')
 
     // append to div
     div.appendChild(this.input)
@@ -243,9 +273,12 @@ class CustomNumberField extends HTMLElement {
 }
 
 try {
-  if (document.head.createShadowRoot == undefined || document.head.attachShadow == undefined) {
-    throw "Your browser does not support ShadowDOM"
-  }
+
+  // TODO Check if necessary, because now everything is polyfilled or transpiled:
+    //if (document.head.createShadowRoot == undefined || document.head.attachShadow == undefined) {
+    //  throw "Your browser does not support ShadowDOM"
+    //}
+
   customElements.define('custom-number-field', CustomNumberField)
 } catch (err) {
   document.addEventListener("DOMContentLoaded", function (event) {

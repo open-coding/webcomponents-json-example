@@ -1,0 +1,40 @@
+{
+  "name": "webcomponents-json-example",
+  "version": "1.0.0",
+  "description": "a simple example how autonomous custom elements can be updated by json",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/open-coding/webcomponents-json-example.git"
+  },
+  "keywords": [
+    "webcomponent",
+    "json",
+    "autonomous",
+    "custom",
+    "element"
+  ],
+  "author": "Patrick Möller-Knorr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/open-coding/webcomponents-json-example/issues"
+  },
+  "homepage": "https://github.com/open-coding/webcomponents-json-example#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.5.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.1",
+    "@babel/plugin-transform-arrow-functions": "^7.2.0",
+    "@babel/plugin-transform-classes": "^7.4.4",
+    "@babel/plugin-transform-template-literals": "^7.4.4",
+    "@babel/preset-env": "^7.5.0",
+    "babel-plugin-transform-imports": "^2.0.0",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-connect": "^5.7.0",
+    "gulp-open": "^3.0.1"
+  }
+}
