@@ -47,16 +47,16 @@ PS repositories:\webcomponents-json-example> npm start
 
 ## Gulp task explained
 
-The gulp task copies all `.css` and `.html` files to an new folder called `dist`. It also copies all `.js` files, but before doing so it will be transpiled with [babel](https://babeljs.io/). Then a server is started an the default browser is opened to view the example. All `.css`, `.html` and `.js` files in the `src` folder are watched and if they change they will be copied and transpiled (if it's a JavaScript file) again and the browser gets automatically reloaded. 
+The gulp task copies all `.css` and `.html` files into a folder called `dist`. It also copies all `.js` files, but before doing so they will be transpiled with [babel](https://babeljs.io/). Then a server is started an the default browser is opened to view the example. All `.css`, `.html` and `.js` files in the `src` folder are watched and if they change they will be copied and transpiled (if it's a JavaScript file) again and the browser gets automatically reloaded. 
 
 # Used dependencies
 
 Within the package.json there are only dev-dependencies for [gulp](https://gulpjs.com/) and [babel](https://babeljs.io/) and some of its plugins to get the build-chain running. I did add [babel](https://babel.js.io) to get some features work that aren't supported in IE11:
 
-* template-literals
-* classes
-* arrow functions
-* spread operator
+* [template-literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
+* [classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Defining_classes)
+* [arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+* [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
 
 # Used polyfills
 
