@@ -6,7 +6,7 @@ The example is deliberately kept very minimalistic and consists of only three fi
 
 Not all browsers support all necessary specifications, so I recommend to use Google Chrome. For more information [see caniuse.com](https://caniuse.com/#search=webcomponents)
 
-The example creates an autonomous custom element and uses a ShadowDOM. It does not use templates yet, but I'll change that in near future.
+The example creates an [autonomous custom element](https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-autonomous-example) and uses a [ShadowDOM](https://dom.spec.whatwg.org/#shadow-trees). It does not use templates yet, but I'll change that in near future.
 
 # How to start
 
