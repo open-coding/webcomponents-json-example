@@ -2,13 +2,16 @@ const gulp    = require('gulp');
 const babel   = require('gulp-babel');
 const open    = require('gulp-open');
 const connect = require('gulp-connect');
+const webpack = require('webpack-stream');
+
 
 const config = {
     paths: {
         src: {
-            html: './src/*.html',
-            css:  './src/*.css',
-            js:   './src/*.js'
+            entry: './src/entry.js',
+            html:  './src/*.html',
+            css:   './src/*.css',
+            js:    './src/**/*.js'
         },
         dist: './dist/'
     },
@@ -19,7 +22,8 @@ const config = {
 };
 
 gulp.task('babel', function() {
-    return gulp.src(config.paths.src.js)
+    return gulp.src(config.paths.src.entry)
+        .pipe(webpack({output: {filename: 'bundle.js'}, mode: "development"}))
         .pipe(babel())
         .pipe(gulp.dest(config.paths.dist))
         .pipe(connect.reload());
