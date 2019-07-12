@@ -14,6 +14,7 @@
 
   <!-- the JS with our webcomponent -->
   <script src="bundle.js"></script>
+  <!-- <script>JsonDispatcher.dispatch('')</script> -->
 </head>
 
 <body>
@@ -51,12 +52,13 @@
         </div>
       </fieldset>
       <fieldset class="col-2 row-1">
-        <legend>webcomponent under test</legend>
+        <legend>webcomponents under test</legend>
         <custom-number-field></custom-number-field>
+        <custom-select-field></custom-select-field>
       </fieldset>
       <fieldset class="col-3 row-1">
         <legend>normal element</legend>
-        <input type="number"></input>
+        <input type="number"/>
       </fieldset>
     </div>
     <div class="col-1 row-2 gap"></div>

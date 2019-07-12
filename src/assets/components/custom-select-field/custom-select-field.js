@@ -1,32 +1,25 @@
-
 import CustomField from '../custom-field/custom-field'
 
 // webcomponents has its own style - 'hidden' by shadow-dom
 // just for demonstation-purpose
 const getStyle = 
 `
-  input {
+  select {
     width: 120px;
   }
 
-  input:required:not(:disabled) + label:after {
+  select:required:not(:disabled) + label:after {
     color: red;
-    content: ' *';
+    content: '*';
   }
 
-  input:required:disabled + label:after {
+  select:required:disabled + label:after {
     color: grey;
-    content: ' *';
+    content: '*';
   }
 
-  input:disabled + label {
+  select:disabled + label {
     color: grey;
-  }
-
-  input:read-only {
-    background-color: #ebebeb;
-    border: 2px solid #a6a6a6;
-    outline: none;
   }
 
   :invalid {
@@ -34,24 +27,16 @@ const getStyle =
     border: 2px solid #cc0033;
     outline: none;
   }
-  
-  .grid {
-    display: grid;
-    display: -ms-grid;
-    grid-template-columns: min-content;
-    -ms-grid-columns: min-content;
-    grid-gap: 5px;
-  }
 `
 
-class CustomNumberField extends CustomField {
+class CustomSelectField extends CustomField {
 
   static get observedAttributes() {
     return ['json'];
   }
 
   connectedCallback() {
-    console.info('custom-number-field connectedCallback')
+    console.info('custom-select-field connectedCallback')
 
     if (!this.hasAttribute('json')) {
       this.setAttribute('json', '{}')
@@ -61,14 +46,13 @@ class CustomNumberField extends CustomField {
     this.id = id ? id : this.guidGenerator()
 
     // create HTML-elements 
-    this.input = document.createElement('input');
-    
+    this.input = document.createElement('select');
 
     this._render()
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    console.info(`custom-number-field attributeChangedCallback ${name} from ${oldValue} to ${newValue}`)
+    console.info(`custom-select-field attributeChangedCallback ${name} from ${oldValue} to ${newValue}`)
     if (name === 'json') {
       this.updateJSON(newValue)
     }
@@ -79,14 +63,14 @@ class CustomNumberField extends CustomField {
 
       // this codeblock was written because IE11 does not support Object.entries
       // to avoid using a polyfill, the following code was written
-      if (json) {
-        if (json.trim().length < 4) {
+      if(json){
+        if(json.trim().length < 4){
           // fail fast ... nothing todo, because empty object
           return;
         }
       }
 
-      if (json == null) {
+      if(json == null){
         return;
       }
 
@@ -150,10 +134,11 @@ class CustomNumberField extends CustomField {
       case 'focus':
 
         if (
-          !this.input.hasAttribute('readonly')
-          || !this.input.hasAttribute('disabled')
-          || !this.input.hasAttribute('hidden')
-        ) {
+                !this.input.hasAttribute('readonly')
+              || !this.input.hasAttribute('disabled')
+              || !this.input.hasAttribute('hidden')
+           ) 
+        {
           this.input.focus();
         }
 
@@ -172,38 +157,41 @@ class CustomNumberField extends CustomField {
   _getDelegate(){
     return this.input;
   }
-
+  
   // maybe use templates instead
   _render() {
     super._render()
     this._addStyle()
 
     // configure input
-    this.input.setAttribute('type', 'number')
-    this.input.setAttribute('min', '10')
-    this.input.setAttribute('max', '15')
+    this.input.setAttribute('type', 'select')
+    const optionOne = document.createElement('option')
+    optionOne.value ='father'
+    optionOne.innerHTML = optionOne.value
+    this.input.appendChild(optionOne)
+    const optionTwo = document.createElement('option')
+    optionTwo.value ='mother'
+    optionTwo.innerHTML = optionTwo.value
+    this.input.appendChild(optionTwo)
     this.input.setAttribute('id', `${this.id}-delegate`)
     // configure label
     this.label.setAttribute('for', `${this.id}-delegate`)
     this.label.innerText = 'labeltext'
+    
+    
     this.root.appendChild(this._getDelegate())
     this.root.appendChild(this.label)
-    this._handleLabelOrientation('west')
-
-    // append to div
-    //this.delegateContainer.appendChild(this.input) 
-
   }
 }
 
 try {
 
   // TODO Check if necessary, because now everything is polyfilled or transpiled:
-  //if (document.head.createShadowRoot == undefined || document.head.attachShadow == undefined) {
-  //  throw "Your browser does not support ShadowDOM"
-  //}
+    //if (document.head.createShadowRoot == undefined || document.head.attachShadow == undefined) {
+    //  throw "Your browser does not support ShadowDOM"
+    //}
 
-  customElements.define('custom-number-field', CustomNumberField)
+  customElements.define('custom-select-field', CustomSelectField)
 } catch (err) {
   document.addEventListener("DOMContentLoaded", function (event) {
     const h1 = document.createElement('h1')

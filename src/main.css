@@ -7,6 +7,12 @@ fieldset {
   padding: 20px;
 }
 
+/* input + div + label:after{
+  color: #4CAF50;
+  background-color: black;
+  content: '*';
+} */
+
 table.center {
   margin-left: auto;
   margin-right: auto;
