@@ -23,7 +23,7 @@ const config = {
 
 gulp.task('babel', function() {
     return gulp.src(config.paths.src.entry)
-        .pipe(webpack({output: {filename: 'bundle.js'}, mode: "development"}))
+        .pipe(webpack({output: {filename: 'bundle.js'}, mode: "production"}))
         .pipe(babel())
         .pipe(gulp.dest(config.paths.dist))
         .pipe(connect.reload());
@@ -57,7 +57,7 @@ gulp.task('connect', function () {
 
 gulp.task('open', function(){
     gulp.src(config.paths.dist + 'index.html')
-        .pipe(open({uri: config.localServer.url}));
+        .pipe(open({uri: config.localServer.url, app: 'iexplore' }));
 });
 
 gulp.task('copy', gulp.parallel('html', 'css', 'babel'));
