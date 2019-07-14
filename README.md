@@ -56,7 +56,7 @@ The gulp task copies all `.css` and `.html` files into a folder called `dist`. I
 
 # Used dependencies
 
-Within the package.json there are only dev-dependencies for [gulp](https://gulpjs.com/) and [babel](https://babeljs.io/) and some of its plugins to get the build-chain running. I did add [babel](https://babel.js.io) to get some features work that aren't supported in IE11:
+Within the package.json there are only dev-dependencies for [gulp](https://gulpjs.com/), @webpack-stream, [babel](https://babeljs.io/) and some of its plugins to get the build-chain running. I did add [babel](https://babel.js.io) to get some features work that aren't supported in IE11:
 
 * [template-literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
 * [classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Defining_classes)
