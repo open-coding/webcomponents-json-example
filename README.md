@@ -1,6 +1,6 @@
 # webcomponents-json-example
 
-⚠ Experimental ⚠ example that demonstrates how an autonomous custom element can be updated by JSON. I just wanted to write my first custom element and investigate how JSON can be used to initialize and update a webcomponent.
+⚠ Experimental ⚠ example that demonstrates how an autonomous custom element can be updated by JSON. I just wanted to write my first custom element and investigate how JSON can be used to initialize and update a webcomponent instead of writing dozens of attributes where some of them may not even result in a standard html attribute. This is especially intended for applications that receive data from a server and have no frontend logic in the browser.
 
 The example is deliberately kept very minimalistic and consists of only three files that are copied via [gulp](https://gulpjs.com/) to the `\dist` folder. There is only a simple build stack just to ensure that this example runs in common browser. Yes, including IE11 😥 
 
