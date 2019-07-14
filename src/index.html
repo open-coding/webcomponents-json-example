@@ -14,7 +14,6 @@
 
   <!-- the JS with our webcomponent -->
   <script src="bundle.js"></script>
-  <!-- <script>JsonDispatcher.dispatch('')</script> -->
 </head>
 
 <body>
@@ -29,7 +28,8 @@
       {
           "label": {
           "text": "Zeit in Sekunden",
-          "orientation": "north"
+          "orientation": "north",
+          "tooltip": "a very special tooltip"
           },
           "min": 20,
           "max": 40,
@@ -53,12 +53,15 @@
       </fieldset>
       <fieldset class="col-2 row-1">
         <legend>webcomponents under test</legend>
-        <custom-number-field></custom-number-field>
-        <custom-select-field></custom-select-field>
+        <div class="grid-1">
+          <custom-number-field class="col-1 row-1"></custom-number-field>
+          <custom-select-field class="col-1 row-2"></custom-select-field>
+        </div>
       </fieldset>
       <fieldset class="col-3 row-1">
         <legend>normal element</legend>
-        <input type="number"/>
+        <label>normal number field</label>
+        <input type="number" min="20" max="40" data-disabled="false" data-editable="true" data-visible="true" data-value="25" data-mandatory="true" data-commands=""/>
       </fieldset>
     </div>
     <div class="col-1 row-2 gap"></div>
@@ -87,7 +90,7 @@
         </tr>
         <tr>
           <td>Microsoft Internet Explorer 11</td>
-          <td>11.557.17763.0</td>
+          <td>11.239.18362.0</td>
           <td>✔</td>
         </tr>
       </table>

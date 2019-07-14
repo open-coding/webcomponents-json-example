@@ -6,7 +6,7 @@ The example is deliberately kept very minimalistic and consists of only three fi
 
 Not all browsers support all necessary specifications, so I recommend to use Google Chrome. For more information [see caniuse.com](https://caniuse.com/#search=webcomponents)
 
-The example creates an [autonomous custom element](https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-autonomous-example) and uses a [ShadowDOM](https://dom.spec.whatwg.org/#shadow-trees). It does not use templates yet, but I'll change that in near future.
+The example creates two [autonomous custom elements](https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-autonomous-example) and uses a [ShadowDOM](https://dom.spec.whatwg.org/#shadow-trees). It does not use templates yet, but I'll change that in near future.
 
 # How to start
 
@@ -23,31 +23,36 @@ PS repositories:\webcomponents-json-example> npm start
 > webcomponents-json-example@2.0.0 start D:\Repositories\webcomponents-json-example
 > gulp
 
-[23:50:13] Using gulpfile D:\Repositories\webcomponents-json-example\gulpfile.js
-[23:50:13] Starting 'default'...
-[23:50:13] Starting 'copy'...
-[23:50:13] Starting 'html'...
-[23:50:13] Starting 'css'...
-[23:50:13] Starting 'babel'...
-[23:50:14] Finished 'css' after 613 ms
-[23:50:14] Finished 'babel' after 614 ms
-[23:50:14] Finished 'html' after 616 ms
-[23:50:14] Finished 'copy' after 617 ms
-[23:50:14] Starting 'run-server-and-watch'...
-[23:50:14] Starting 'run-server'...
-[23:50:14] Starting 'watch'...
-[23:50:14] Starting 'connect'...
-[23:50:14] Starting 'open'...
-[23:50:14] Starting server...
-[23:50:14] Server started http://localhost:8001
-[23:50:14] LiveReload started on port 35729
-[23:50:14] Running server
-[23:50:14] Opening http://localhost:8001/ using the default OS app
+[00:24:56] Using gulpfile D:\Repositories\webcomponents-json-example\gulpfile.js
+[00:24:56] Starting 'default'...
+[00:24:56] Starting 'copy'...
+[00:24:56] Starting 'html'...
+[00:24:56] Starting 'css'...
+[00:24:56] Starting 'babel'...
+[00:24:56] Finished 'html' after 580 ms
+[00:24:56] Finished 'css' after 581 ms 
+[00:24:56] Version: webpack 4.35.3
+Built at: 2019-07-15 12:24:56 AM
+    Asset      Size  Chunks             Chunk Names
+bundle.js  8.95 KiB       0  [emitted]  main       
+Entrypoint main = bundle.js
+[00:24:57] Finished 'babel' after 1.4 s
+[00:24:57] Finished 'copy' after 1.4 s
+[00:24:57] Starting 'run-server-and-watch'...
+[00:24:57] Starting 'run-server'...
+[00:24:57] Starting 'watch'...
+[00:24:57] Starting 'connect'...
+[00:24:57] Starting 'open'...
+[00:24:57] Starting server...
+[00:24:57] Server started http://localhost:8001
+[00:24:57] LiveReload started on port 35729
+[00:24:57] Running server
+[00:24:57] Opening http://localhost:8001/ using the app iexplore
 ```
 
 ## Gulp task explained
 
-The gulp task copies all `.css` and `.html` files into a folder called `dist`. It also copies all `.js` files, but before doing so they will be transpiled with [babel](https://babeljs.io/). Then a server is started an the default browser is opened to view the example. All `.css`, `.html` and `.js` files in the `src` folder are watched and if they change they will be copied and transpiled (if it's a JavaScript file) again and the browser gets automatically reloaded. 
+The gulp task copies all `.css` and `.html` files into a folder called `dist`. It also bundles all `.js` files with [webpack](https://webpack.js.org/) and after that the JavaScript will be transpiled with [babel](https://babeljs.io/). Then a server is started and the internet explorer is opened to view the example. You may change that configuration within `gulpfile.js`. All `.css`, `.html` and `.js` files in the `src` folder are watched and if they change they will be copied and transpiled (if it's a JavaScript file) again and the browser gets automatically reloaded. 
 
 # Used dependencies
 
@@ -57,6 +62,7 @@ Within the package.json there are only dev-dependencies for [gulp](https://gulpj
 * [classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Defining_classes)
 * [arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
 * [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
+* [imports](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
 
 # Used polyfills
 

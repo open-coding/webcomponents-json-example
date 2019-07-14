@@ -1,4 +1,6 @@
 
+// webcomponents has its own style - 'hidden' by shadow-dom
+// just for demonstation-purpose
   const gridStyle =
   `
   .grid {
@@ -47,7 +49,7 @@ export default class CustomField extends HTMLElement {
 
     _getDelegate(){
       // code here what element should be added to this.root
-      //throw new Error('You have to implement the method _getDelegate!')
+      throw new Error('You have to implement the method _getDelegate!')
     }
 
     guidGenerator()  {
@@ -63,6 +65,9 @@ export default class CustomField extends HTMLElement {
       if (jsonObject.label != undefined) {
         if (jsonObject.label.text != undefined && this.label.innerText != jsonObject.label.text) {
           this.label.innerText = jsonObject.label.text
+        }
+        if (jsonObject.label.tooltip != undefined && this.label.getAttribute('title') != jsonObject.label.tooltip) {
+          this.label.setAttribute('title', jsonObject.label.tooltip)
         }
         if (jsonObject.label.orientation != undefined) {
           this._handleLabelOrientation(jsonObject.label.orientation, this._getDelegate())

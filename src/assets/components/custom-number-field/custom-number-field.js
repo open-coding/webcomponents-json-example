@@ -77,28 +77,20 @@ class CustomNumberField extends CustomField {
   updateJSON(json) {
     try {
 
-      // this codeblock was written because IE11 does not support Object.entries
-      // to avoid using a polyfill, the following code was written
-      if (json) {
-        if (json.trim().length < 4) {
-          // fail fast ... nothing todo, because empty object
-          return;
-        }
-      }
-
-      if (json == null) {
+      if(json == null){
         return;
       }
 
+      if(json){
+        if (json.trim().length < 4) {
+        // next codeblock should be used instead of the above code
+        // if (Object.keys(json).length === 0 && json.constructor === Object) {
+          // fail fast ... nothing todo, because empty object
+          return
+        }
+      }
+
       const obj = JSON.parse(json);
-
-      // next codeblock should be used instead of the above code
-
-      //if (Object.entries(obj).length === 0 && obj.constructor === Object) {
-      // // fail fast ... nothing todo, because empty object
-      // return
-      //}
-
 
       console.info('parsing json...')
       this.updateLabel(obj)
@@ -196,23 +188,4 @@ class CustomNumberField extends CustomField {
   }
 }
 
-try {
-
-  // TODO Check if necessary, because now everything is polyfilled or transpiled:
-  //if (document.head.createShadowRoot == undefined || document.head.attachShadow == undefined) {
-  //  throw "Your browser does not support ShadowDOM"
-  //}
-
-  customElements.define('custom-number-field', CustomNumberField)
-} catch (err) {
-  document.addEventListener("DOMContentLoaded", function (event) {
-    const h1 = document.createElement('h1')
-    const body = document.body;
-    h1.innerHTML = "This site uses webcomponents which don't work in all browsers!<br>Try this site in a browser that supports them!"
-
-    while (body.firstChild) {
-      body.removeChild(body.firstChild);
-    }
-    document.body.appendChild(h1)
-  });
-}
+customElements.define('custom-number-field', CustomNumberField)
