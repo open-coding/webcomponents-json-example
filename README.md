@@ -20,10 +20,10 @@ After the last command it should look like this:
 ```
 PS repositories:\webcomponents-json-example> npm start
 
-> webcomponents-json-example@2.0.0 start D:\Repositories\webcomponents-json-example
+> webcomponents-json-example@2.0.0 start repositories:\webcomponents-json-example
 > gulp
 
-[00:24:56] Using gulpfile D:\Repositories\webcomponents-json-example\gulpfile.js
+[00:24:56] Using gulpfile repositories:\webcomponents-json-example\gulpfile.js
 [00:24:56] Starting 'default'...
 [00:24:56] Starting 'copy'...
 [00:24:56] Starting 'html'...
