@@ -29,18 +29,17 @@ const getStyle =
     outline: none;
   }
 
+  /* needed for IE11 - doesn't support read-only selector 😒*/
+  input[readonly] {
+    background-color: #ebebeb;
+    border: 2px solid #a6a6a6;
+    outline: none;
+  }
+
   :invalid {
     background-color: #fce4e4;
     border: 2px solid #cc0033;
     outline: none;
-  }
-  
-  .grid {
-    display: grid;
-    display: -ms-grid;
-    grid-template-columns: min-content;
-    -ms-grid-columns: min-content;
-    grid-gap: 5px;
   }
 `
 
@@ -68,7 +67,7 @@ class CustomNumberField extends CustomField {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    console.info(`custom-number-field attributeChangedCallback ${name} from ${oldValue} to ${newValue}`)
+    // console.info(`custom-number-field attributeChangedCallback ${name} from ${oldValue} to ${newValue}`)
     if (name === 'json') {
       this.updateJSON(newValue)
     }
@@ -92,7 +91,7 @@ class CustomNumberField extends CustomField {
 
       const obj = JSON.parse(json);
 
-      console.info('parsing json...')
+      // console.info('parsing json...')
       this.updateLabel(obj)
 
       this._setIfValueExists(obj.max, 'max', this.input)

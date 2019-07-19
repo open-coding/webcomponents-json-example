@@ -3,14 +3,28 @@
 // just for demonstation-purpose
   const gridStyle =
   `
-  .grid {
+  .grid-horizontal {
     display: grid;
     display: -ms-grid;
-    grid-template-columns: min-content;
-    -ms-grid-columns: min-content;
+    grid-template-columns: max-content;
+    -ms-grid-columns: max-content;
+    -ms-grid-rows: max-content 5px;
     grid-gap: 5px;
   }
-  
+
+  .grid-vertical {
+    display: grid;
+    display: -ms-grid;
+    grid-template-columns: ;
+    -ms-grid-rows: max-content;
+    -ms-grid-columns: max-content;
+    grid-gap: 5px;
+  }
+
+  label {
+    display: inline-block;
+  }
+
   .col-1 {
     grid-column: 1;
     -ms-grid-column: 1;
@@ -42,7 +56,7 @@ export default class CustomField extends HTMLElement {
         // set defaults
         this.currentLabelOrientation = 'none'
         this.root = document.createElement('div')
-        this.root.classList.add('grid')
+        this.root.classList.add('grid-horizontal')
         this.label = document.createElement('label')
         this.shadow.appendChild(this.root)
     }
@@ -86,27 +100,32 @@ export default class CustomField extends HTMLElement {
         this._removeGridClasses()
         switch (orientation) {
         case 'north':
+            this.root.classList.add('grid-vertical')
             this.label.classList.add('col-1', 'row-1')
             this._getDelegate().classList.add('col-1', 'row-2')
             this.currentLabelOrientation = 'north'
             break;
         case 'south':
+            this.root.classList.add('grid-vertical')
             this.label.classList.add('col-1', 'row-2')
             this._getDelegate().classList.add('col-1', 'row-1')
             this.currentLabelOrientation = 'south'
             break;
         case 'east':
+            this.root.classList.add('grid-horizontal')
             this.label.classList.add('col-2', 'row-1')
             this._getDelegate().classList.add('col-1', 'row-1')
             this.currentLabelOrientation = 'east'
             break;
         case 'west':
+            this.root.classList.add('grid-horizontal')
             this.label.classList.add('col-1', 'row-1')
             this._getDelegate().classList.add('col-2', 'row-1')
             this.currentLabelOrientation = 'west'
             break;
         default:
             // same as north
+            this.root.classList.add('grid-vertical')
             this.label.classList.add('col-1', 'row-1')
             this._getDelegate().classList.add('col-1', 'row-2')
             this.currentLabelOrientation = 'north'
@@ -127,6 +146,7 @@ export default class CustomField extends HTMLElement {
 
     _removeGridClasses() {
         // find a better solution for that!
+        this.root.classList.remove(['grid-horizontal', 'grid-vertical'])
         const list = ['col-1', 'col-2', 'row-1', 'row-2'];
         this.label.classList.remove(...list)
         this._getDelegate().classList.remove(...list)

@@ -12,11 +12,12 @@
   <!-- polyfill classlist to get support for multiple add in IE 11 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.2.20171210/classList.min.js"></script>
 
-  <!-- the JS with our webcomponent -->
+  <!-- the JS with our webcomponents -->
   <script src="bundle.js"></script>
 </head>
 
 <body>
+  <json-dispatcher></json-dispatcher>
   <h1>autonomous custom element updated by JSON - Example</h1>
   <p>This test demonstrates how an autonomous custom element can be configured and updated by JSON.</p>
   <div class="grid-1">
@@ -24,38 +25,21 @@
       <fieldset class="col-1 row-1">
         <legend>JSON</legend>
         <div class="grid-1">
-          <textarea id="json-data" class="col-1 row-1">
-      {
-          "label": {
-          "text": "Zeit in Sekunden",
-          "orientation": "north",
-          "tooltip": "a very special tooltip"
-          },
-          "min": 20,
-          "max": 40,
-          "disabled": false,
-          "editable": true,
-          "visible": true,
-          "value": "25",
-          "mandatory": true,
-          "commands": ["focus"]
-      }</textarea>
-          <button class="col-1 row-2"
-            onclick="document.getElementsByTagName('custom-number-field')[0].setAttribute('json',document.getElementById('json-data').value)">send
-            to webcomponent via attribute</button>
-          <button class="col-1 row-3"
-            onclick="document.getElementsByTagName('custom-number-field')[0].removeAttribute('json')">clear
-            json attribute</button>
-          <button class="col-1 row-4"
-            onclick="document.getElementsByTagName('custom-number-field')[0].updateJSON(document.getElementById('json-data').value)">send
-            to webcomponent via function</button>
+          <textarea id="json-data" class="col-1 row-1"></textarea>
+          <button id="generate-json-button" class="col-1 row-2">generate JSON</button>
+          <button id="generate-small-json-button" class="col-1 row-3">generate small JSON</button>
+          <button id="dispatch-json-button" class="col-1 row-4">dispatch JSON</button>
+          <button id="generate-webcomponents-button" class="col-1 row-5">generate 100 new webcomponents</button>
         </div>
       </fieldset>
       <fieldset class="col-2 row-1">
         <legend>webcomponents under test</legend>
-        <div class="grid-1">
+        <div id="webcomponents" class="grid-1">
           <custom-number-field class="col-1 row-1"></custom-number-field>
-          <custom-select-field class="col-1 row-2"></custom-select-field>
+          <custom-number-field class="col-1 row-2"></custom-number-field>
+          <custom-number-field class="col-1 row-3"></custom-number-field>
+          <custom-number-field class="col-1 row-4"></custom-number-field>
+          <custom-select-field class="col-1 row-5"></custom-select-field>
         </div>
       </fieldset>
       <fieldset class="col-3 row-1">

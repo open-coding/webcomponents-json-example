@@ -5,7 +5,7 @@ export default class JsonDispatcher extends HTMLElement {
 
     constructor(...args) {
         super(...args);
-        console.debug('JsonDispatcher')
+        console.info('json-dispatcher constructor')
     }
 
     static get observedAttributes() {
@@ -17,15 +17,15 @@ export default class JsonDispatcher extends HTMLElement {
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        console.info(`json-dispatcher attributeChangedCallback ${name} from ${oldValue} to ${newValue}`)
+        // console.info(`json-dispatcher attributeChangedCallback ${name} from ${oldValue} to ${newValue}`)
         if (name === 'json') {
-            this.updateJSON(newValue)
+            this.dispatch(newValue)
         }
     }
 
-    updateJSON(json) {
+    dispatch(json) {
         try {
-
+            console.time('json-dispatcher.dispatch')
             if (json == null) {
                 return;
             }
@@ -40,9 +40,12 @@ export default class JsonDispatcher extends HTMLElement {
             }
 
             const obj = JSON.parse(json);
-
-            console.debug(obj)
-
+            
+            Object.keys(obj).forEach(function(id){
+                //console.info(`updating ${id}`)
+                document.getElementById(id).updateJSON(JSON.stringify(obj[`${id}`]))
+            });
+            console.timeEnd('json-dispatcher.dispatch')
         } catch (err) {
             console.warn(`invalid json: ${err}`)
         }
