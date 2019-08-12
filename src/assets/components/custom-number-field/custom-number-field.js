@@ -1,47 +1,5 @@
-
 import CustomField from '../custom-field/custom-field'
-
-// webcomponents has its own style - 'hidden' by shadow-dom
-// just for demonstation-purpose
-const getStyle = 
-`
-  input {
-    width: 120px;
-  }
-
-  input:required:not(:disabled) + label:after {
-    color: red;
-    content: ' *';
-  }
-
-  input:required:disabled + label:after {
-    color: grey;
-    content: ' *';
-  }
-
-  input:disabled + label {
-    color: grey;
-  }
-
-  input:read-only {
-    background-color: #ebebeb;
-    border: 2px solid #a6a6a6;
-    outline: none;
-  }
-
-  /* needed for IE11 - doesn't support read-only selector 😒*/
-  input[readonly] {
-    background-color: #ebebeb;
-    border: 2px solid #a6a6a6;
-    outline: none;
-  }
-
-  :invalid {
-    background-color: #fce4e4;
-    border: 2px solid #cc0033;
-    outline: none;
-  }
-`
+import { customNumberFieldStyles as getStyle } from '../../component-styles/styles'
 
 class CustomNumberField extends CustomField {
 
