@@ -1,33 +1,5 @@
 import CustomField from '../custom-field/custom-field'
-
-// webcomponents has its own style - 'hidden' by shadow-dom
-// just for demonstation-purpose
-const getStyle = 
-`
-  select {
-    width: 120px;
-  }
-
-  select:required:not(:disabled) + label:after {
-    color: red;
-    content: '*';
-  }
-
-  select:required:disabled + label:after {
-    color: grey;
-    content: '*';
-  }
-
-  select:disabled + label {
-    color: grey;
-  }
-
-  :invalid {
-    background-color: #fce4e4;
-    border: 2px solid #cc0033;
-    outline: none;
-  }
-`
+import { customSelectFieldStyles as getStyle } from '../../component-styles/styles'
 
 class CustomSelectField extends CustomField {
 
