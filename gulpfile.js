@@ -11,6 +11,7 @@ const config = {
             entry: './src/entry.js',
             html: './src/*.html',
             css: './src/*.css',
+            shadowCss: './src/**/*.shadow.css',
             js: './src/**/*.js'
         },
         dist: './dist/'
@@ -33,6 +34,7 @@ gulp.task('watch', function () {
     gulp.watch(config.paths.src.js, gulp.series('babel'));
     gulp.watch(config.paths.src.html, gulp.series('html'));
     gulp.watch(config.paths.src.css, gulp.series('css'));
+    gulp.watch(config.paths.src.shadowCss, gulp.series('babel'));
 });
 
 gulp.task('html', function () {

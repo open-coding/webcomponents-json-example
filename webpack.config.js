@@ -4,6 +4,6 @@ module.exports = {
     },
     mode: 'production',
     module: {
-        rules: [{ test: /.field\.css$/, use: 'raw-loader' }]
+        rules: [{ test: /\.shadow\.css$/, use: 'raw-loader' }]
     }
 }
