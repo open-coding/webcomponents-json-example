@@ -94,12 +94,12 @@ export default class JsonGenerator {
 
     _randomLabelTooltip() {
         return ["this is a tooltip", "some kind of tooltip", "important information",
-            "bar", "foo", "a tooltip", "foobar", "a very special tooltip"][this._randomIntFromInterval(0, 7)];
+                "bar", "foo", "a tooltip", "foobar", "a very special tooltip"][this._randomIntFromInterval(0, 7)];
     }
 
     _randomLabelText() {
         return ["something", "amount", "current value",
-            "bar", "foo", "a labeltext", "label"][this._randomIntFromInterval(0, 6)];
+                "bar", "foo", "a labeltext", "label"][this._randomIntFromInterval(0, 6)];
     }
 
     _randomIntFromInterval(min, max) {

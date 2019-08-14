@@ -1,6 +1,5 @@
 input {
     width: 120px;
-    background-color: yellow;
 }
 
 input:required:not(:disabled)+label:after {

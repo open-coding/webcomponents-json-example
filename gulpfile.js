@@ -59,7 +59,7 @@ gulp.task('connect', function () {
 
 gulp.task('open', function () {
     gulp.src(config.paths.dist + 'index.html')
-    // .pipe(open({uri: config.localServer.url, app: 'iexplore' }));
+    .pipe(open({uri: config.localServer.url, app: 'iexplore' }));
 });
 
 gulp.task('copy', gulp.parallel('html', 'css', 'babel'));
