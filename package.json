@@ -32,10 +32,13 @@
     "@babel/plugin-transform-template-literals": "^7.4.4",
     "@babel/preset-env": "^7.5.4",
     "babel-plugin-transform-imports": "^2.0.0",
+    "eslint": "^6.1.0",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-connect": "^5.7.0",
+    "gulp-eslint": "^6.0.0",
     "gulp-open": "^3.0.1",
+    "raw-loader": "^3.1.0",
     "webpack-stream": "^5.2.1"
   }
 }

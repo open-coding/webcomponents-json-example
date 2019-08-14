@@ -1,9 +1,11 @@
 {
-    "presets": ["@babel/preset-env"],
+    "presets": [
+        "@babel/preset-env"
+    ],
     "plugins": [
-                    "@babel/plugin-transform-template-literals",
-                    "@babel/plugin-transform-classes",
-                    "@babel/plugin-transform-arrow-functions",
-                    "@babel/plugin-proposal-object-rest-spread"
-                ]
-  }
+        "@babel/plugin-transform-template-literals",
+        "@babel/plugin-transform-classes",
+        "@babel/plugin-transform-arrow-functions",
+        "@babel/plugin-proposal-object-rest-spread"
+    ]
+}
