@@ -43,6 +43,7 @@ export default class JsonDispatcher extends HTMLElement {
                 document.getElementById(id).updateJSON(JSON.stringify(obj[`${id}`]));
             });
             console.timeEnd('json-dispatcher.dispatch');
+            this.removeAttribute('json');
         } catch (err) {
             console.warn(`invalid json: ${err}`);
         }
