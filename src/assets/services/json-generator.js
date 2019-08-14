@@ -1,35 +1,32 @@
-
-
-
 export default class JsonGenerator {
 
-    constructor(...args) {
-        console.info('json-generator constructor')
+    constructor() {
+        console.info('json-generator constructor');
     }
 
     generateJSON() {
-        console.info('json-generator generating json...')
-        let json = {}
-        this._generateFields(json, 'custom-number-field')
+        console.info('json-generator generating json...');
+        let json = {};
+        this._generateFields(json, 'custom-number-field');
         return JSON.stringify(json, null, 2);
     }
 
-    generateJSONWithoutLabel(){
-        console.info('json-generator generating json without label...')
+    generateJSONWithoutLabel() {
+        console.info('json-generator generating json without label...');
 
-        let json = {}
-        this._generateFieldsWithoutLabel(json, 'custom-number-field')
+        let json = {};
+        this._generateFieldsWithoutLabel(json, 'custom-number-field');
         return JSON.stringify(json, null, 2);
     }
 
 
     _generateFieldsWithoutLabel(json, tagName) {
-        const elements = document.getElementsByTagName(tagName)
+        const elements = document.getElementsByTagName(tagName);
         for (let i = 0; i < elements.length; i++) {
             const id = elements[i].getAttribute('id');
             switch (tagName) {
                 case 'custom-number-field':
-                    json[id] = this._generateCustomNumberFieldJSONWithoutLabel()
+                    json[id] = this._generateCustomNumberFieldJSONWithoutLabel();
                     break;
                 default:
                     break;
@@ -38,12 +35,12 @@ export default class JsonGenerator {
     }
 
     _generateFields(json, tagName) {
-        const elements = document.getElementsByTagName(tagName)
+        const elements = document.getElementsByTagName(tagName);
         for (let i = 0; i < elements.length; i++) {
             const id = elements[i].getAttribute('id');
             switch (tagName) {
                 case 'custom-number-field':
-                    json[id] = this._generateCustomNumberFieldJSON()
+                    json[id] = this._generateCustomNumberFieldJSON();
                     break;
                 default:
                     break;
@@ -56,7 +53,7 @@ export default class JsonGenerator {
             text: this._randomLabelText(),
             orientation: this._randomLabelOrientation(),
             tooltip: this._randomLabelTooltip()
-        }
+        };
     }
 
     _generateCustomNumberFieldJSONWithoutLabel() {
@@ -69,7 +66,7 @@ export default class JsonGenerator {
             mandatory: this._randomBoolean()
             // ,
             // commands: ["focus"]
-        }
+        };
     }
 
     _generateCustomNumberFieldJSON() {
@@ -84,26 +81,25 @@ export default class JsonGenerator {
             mandatory: this._randomBoolean()
             // ,
             // commands: ["focus"]
-        }
+        };
     }
 
-    _randomLabelOrientation(){
-        return ["north", "south", "east", "west"][this._randomIntFromInterval(0,3)]
+    _randomLabelOrientation() {
+        return ["north", "south", "east", "west"][this._randomIntFromInterval(0, 3)];
     }
 
-    _randomBoolean(){
-        return [true, false][this._randomIntFromInterval(0,1)]
+    _randomBoolean() {
+        return [true, false][this._randomIntFromInterval(0, 1)];
     }
 
     _randomLabelTooltip() {
-        return ["this is a tooltip", "some kind of tooltip", "important information", 
-                "bar", "foo", "a tooltip", "foobar", "a very special tooltip"]
-                [this._randomIntFromInterval(0, 7)]
+        return ["this is a tooltip", "some kind of tooltip", "important information",
+            "bar", "foo", "a tooltip", "foobar", "a very special tooltip"][this._randomIntFromInterval(0, 7)];
     }
 
     _randomLabelText() {
-        return ["something", "amount", "current value", 
-                "bar", "foo", "a labeltext", "label"][this._randomIntFromInterval(0, 6)]
+        return ["something", "amount", "current value",
+            "bar", "foo", "a labeltext", "label"][this._randomIntFromInterval(0, 6)];
     }
 
     _randomIntFromInterval(min, max) {
