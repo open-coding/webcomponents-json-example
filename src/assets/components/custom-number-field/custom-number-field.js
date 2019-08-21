@@ -1,4 +1,4 @@
-import { customNumberFieldStyles as getStyle } from '../../component-styles/styles'
+import getStyle from './custom-number-field.shadow.css'
 import CustomField from '../custom-field/custom-field'
 
 class CustomNumberField extends CustomField {
@@ -19,7 +19,10 @@ class CustomNumberField extends CustomField {
 
         // create HTML-elements
         this.input = document.createElement('input');
-
+        // this.input.addEventListener('input', this._input)
+        this.input.addEventListener('input', this._changed)
+        this.input.addEventListener('blur', this._focusLost.bind(this))
+        // this.input.addEventListener('change', this._changed)
         this._render();
     }
 
@@ -28,6 +31,123 @@ class CustomNumberField extends CustomField {
         if (name === 'json') {
             this.updateJSON(newValue);
         }
+    }
+
+    disconnectedCallback(){
+        console.log('custom-number-field.disconnectedCallback()')
+        this.input.removeEventListener('input', this._changed)
+        this.input.removeEventListener('blur', this._focusLost)
+    }
+
+    _focusLost(e){
+        console.log('_focusLost');
+        console.log(e);
+
+        console.log(`old value: ${this.input.defaultValue}`);
+        console.log(`cur value: ${this.input.value}`);
+        
+        this.input.value = this._autocomplete(this.input.value);
+        this.input.defaultValue = this.input.value;
+    }
+
+    /**
+     * 
+     * @param {string} value 
+     */
+    _autocomplete(value){
+        if(value == undefined || value == '') {
+            return value;
+        }
+        // replace(/\.*/g,'')
+        if(/^-?\d*(?:\.\d{3})*(?:,\d+)?$/.test(value)){
+            
+            return Intl.NumberFormat('de-DE').format(new Number(value))
+            
+        } else {
+            console.warn('cant autocomplete an incorrect value');
+            return value;
+        }
+    }
+
+    // Research:
+    //https://stackoverflow.com/questions/469357/html-text-input-allow-only-numeric-input
+    //https://www.debuggex.com/r/OoeEW3N212EGh99K
+
+
+    /**
+     * 
+     * @param {*} e 
+     */
+    _changed(e){
+        // console.log(this.value)
+        console.log('_changed')
+        console.log(e);
+        //const valid = /^-?\d{1,3}(?:\.\d{3})*(?:,\d+)?$/;
+        const valid = /^-?\d+(?:[\.]\d{0,3})*(?:,\d*)?$/;
+        //  var valid = /^\-?\d+\.\d*$|^\-?[\d]*$/;
+        const number = /\-\d+\.\d*|\-[\d]*|[\d]+\.[\d]*|[\d]+/;
+
+        //const newValue = this.value + String.fromCharCode(e.charCode)
+
+        console.log(`old value: ${this.defaultValue}`);
+        console.log(`cur value: ${this.value}`);
+        // console.log(`new value: ${newValue}`);
+        
+        this.oldSelectionStart = this.selectionStart;
+        this.oldSelectionEnd = this.selectionEnd;
+
+        console.log(`oldSelectionStart: ${this.oldSelectionStart}`);
+        console.log(`oldSelectionEnd: ${this.oldSelectionEnd}`);
+
+
+        if(this.defaultValue == this.value){
+            console.log('old = current')
+            return;
+        } 
+         else {
+            if(valid.test(this.value)){
+                console.log(`current is valid ${this.value}`)
+                this.defaultValue = this.value
+            } else {
+                console.log('reset current')
+                // if(!this.hasOwnProperty('defaultValue')){
+                //     this.oldValue = "";
+                // }
+                this.value = this.defaultValue;
+            }
+        }
+
+        
+        
+        // console.log('before ##################')
+        
+        // if (/^\d*\.?\d*$/.test(newValue)) {
+        //   //const n = this.value.match(number);
+        //   console.log('yes?')
+        //   //this.value = n ? n[0] : '';
+        //   //this.oldValue = this.value;
+        // } else {
+        //     //this.value = this.oldValue;
+        //     //this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+        //     e.returnValue = false;
+        //     if (e.preventDefault) e.preventDefault();
+        // } 
+        // console.log('after ##################')
+        // console.log(`old value: ${this.oldValue}`);
+        // console.log(`cur value: ${this.value}`);
+        // console.log(`new value: ${newValue}`);
+    }
+
+    /**
+     * 
+     * @param {Event} e 
+     */
+    _input(e) {
+        console.log(this.value)
+        console.log(e);
+        
+
+        
     }
 
     updateJSON(json) {
@@ -51,15 +171,16 @@ class CustomNumberField extends CustomField {
             // console.info('parsing json...')
             this.updateLabel(obj);
 
-            this._setIfValueExists(obj.max, 'max', this.input);
-            this._setIfValueExists(obj.min, 'min', this.input);
+            //this._setIfValueExists(obj.max, 'max', this.input);
+            //this._setIfValueExists(obj.min, 'min', this.input);
             this._setBooleanAttrIfValueExists(obj.disabled, 'disabled', this.input, true);
             this._setBooleanAttrIfValueExists(obj.mandatory, 'required', this.input, true);
             this._setBooleanAttrIfValueExists(obj.editable, 'readonly', this.input, false);
             this._setBooleanAttrIfValueExists(obj.visible, 'hidden', this, false);
 
             if (obj.value != undefined) {
-                this.input.value = obj.value;
+                //  = obj.value;
+                 this.input.value = this._autocomplete(obj.value)
             }
 
             if (obj.commands != undefined) {
@@ -109,12 +230,6 @@ class CustomNumberField extends CustomField {
         }
     }
 
-    _addStyle() {
-        const styleTag = document.createElement('style');
-        styleTag.textContent = getStyle;
-        this.shadow.appendChild(styleTag);
-    }
-
     _getDelegate() {
         return this.input;
     }
@@ -122,12 +237,12 @@ class CustomNumberField extends CustomField {
     // maybe use templates instead
     _render() {
         super._render();
-        this._addStyle();
+        this.injectWebComponentStyle(this.tagName, getStyle);
 
         // configure input
-        this.input.setAttribute('type', 'number');
-        this.input.setAttribute('min', '10');
-        this.input.setAttribute('max', '15');
+        this.input.setAttribute('type', 'text');
+        // this.input.setAttribute('min', '0');
+        // this.input.setAttribute('max', '100');
         this.input.setAttribute('id', `${this.id}-delegate`);
         // configure label
         this.label.setAttribute('for', `${this.id}-delegate`);

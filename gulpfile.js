@@ -1,5 +1,4 @@
 const gulp = require('gulp');
-const babel = require('gulp-babel');
 const open = require('gulp-open');
 const connect = require('gulp-connect');
 const webpack = require('webpack-stream');
@@ -8,11 +7,11 @@ const webpackConfig = require ('./webpack.config');
 const config = {
     paths: {
         src: {
-            entry: './src/entry.js',
-            html: './src/*.html',
-            css: './src/*.css',
+            entry:     './src/entry.js',
+            html:      './src/*.html',
+            css:       './src/*.css',
             shadowCss: './src/**/*.shadow.css',
-            js: './src/**/*.js'
+            js:        './src/**/*.js'
         },
         dist: './dist/'
     },
@@ -25,7 +24,6 @@ const config = {
 gulp.task('babel', function () {
     return gulp.src(config.paths.src.entry)
         .pipe(webpack(webpackConfig))
-        .pipe(babel())
         .pipe(gulp.dest(config.paths.dist))
         .pipe(connect.reload());
 });

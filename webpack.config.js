@@ -4,6 +4,15 @@ module.exports = {
     },
     mode: 'production',
     module: {
-        rules: [{ test: /\.shadow\.css$/, use: 'raw-loader' }]
-    }
+        rules: [
+            {
+                test: /\.shadow\.css$/,
+                use: 'raw-loader'
+            },
+            {
+                test: /\.(js|jsx)$/,
+                use: 'babel-loader'
+            }]
+    },
+    devtool: 'source-map',
 }

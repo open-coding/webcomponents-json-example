@@ -108,12 +108,6 @@ class CustomSelectField extends CustomField {
         }
     }
 
-    _addStyle() {
-        const styleTag = document.createElement('style');
-        styleTag.textContent = getStyle;
-        this.shadow.appendChild(styleTag);
-    }
-
     _getDelegate() {
         return this.input;
     }
@@ -121,7 +115,7 @@ class CustomSelectField extends CustomField {
     // maybe use templates instead
     _render() {
         super._render();
-        this._addStyle();
+        this.injectWebComponentStyle(this.tagName, getStyle);
 
         // configure input
         this.input.setAttribute('type', 'select');

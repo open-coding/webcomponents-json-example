@@ -1,6 +1,8 @@
 
 import { customFieldStyles as gridStyle } from '../../component-styles/styles';
 
+const injectedForTags = [];
+
 export default class CustomField extends HTMLElement {
 
     constructor(...args) {
@@ -88,14 +90,45 @@ export default class CustomField extends HTMLElement {
         }
     }
 
-    _addGridStyle() {
-        const styleTag = document.createElement('style');
-        styleTag.textContent = gridStyle;
-        this.shadow.appendChild(styleTag);
-    }
+    /**
+     * 
+     * @param {string} tagName 
+     * @param {*} cssText 
+     */
+    injectWebComponentStyle(tagName, cssText) {
+        const loweredTagName = tagName.toLowerCase();
+        // Edge and IE
+        if (injectedForTags.indexOf(loweredTagName) !== -1) {
+            return;
+        }
+    
+        this.createStyleInHead(cssText, {
+            "data-style-for-tag": loweredTagName,
+        });
+        injectedForTags.push(loweredTagName);
+    };
+
+    createStyleInHead(cssText, attributes = {}) {
+        const style = document.createElement("style");
+        style.type = "text/css";
+    
+        Object.entries(attributes).forEach(pair => style.setAttribute(...pair));
+    
+        style.textContent = cssText;
+        document.head.appendChild(style);
+        return style;
+    };
 
     _render() {
-        this._addGridStyle();
+		// IE11, Edge
+		if (window.ShadyDOM) {
+			this.injectWebComponentStyle('custom-field', gridStyle);
+		} else {
+            const styleTag = document.createElement('style');
+            styleTag.textContent = gridStyle;
+            this.shadow.appendChild(styleTag);
+        }
+
         this._handleLabelOrientation('west');
     }
 

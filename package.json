@@ -25,20 +25,22 @@
   "homepage": "https://github.com/open-coding/webcomponents-json-example#readme",
   "dependencies": {},
   "devDependencies": {
-    "@babel/core": "^7.5.4",
+    "@babel/core": "^7.5.5",
     "@babel/plugin-proposal-object-rest-spread": "^7.5.4",
     "@babel/plugin-transform-arrow-functions": "^7.2.0",
     "@babel/plugin-transform-classes": "^7.4.4",
     "@babel/plugin-transform-template-literals": "^7.4.4",
-    "@babel/preset-env": "^7.5.4",
+    "@babel/preset-env": "^7.5.5",
+    "babel-loader": "^8.0.6",
     "babel-plugin-transform-imports": "^2.0.0",
+    "core-js": "^3.2.1",
     "eslint": "^6.1.0",
     "gulp": "^4.0.2",
-    "gulp-babel": "^8.0.0",
     "gulp-connect": "^5.7.0",
     "gulp-eslint": "^6.0.0",
     "gulp-open": "^3.0.1",
     "raw-loader": "^3.1.0",
+    "webpack": "^4.39.2",
     "webpack-stream": "^5.2.1"
   }
 }
